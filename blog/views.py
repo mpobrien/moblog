@@ -108,8 +108,10 @@ def login():
     in.  When all worked out as expected, the remote application will
     redirect back to the callback URL provided.
     """
-    return twitter.authorize(callback=url_for('oauth_authorized',
+    resp = twitter.authorize(callback=url_for('oauth_authorized',
         next=request.args.get('next') or request.referrer or None))
+    print resp
+    return resp
 
 @app.route('/logout')
 def logout():
