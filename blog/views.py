@@ -66,7 +66,11 @@ def get_twitter_token():
     """
     user = g.user
     if user is not None:
-        return user.oauth_token, user.oauth_secret
+        try:
+            return user.oauth_token, user.oauth_secret
+        except:
+            return user['oauth_token'], user['oauth_secret']
+
 
 
 
