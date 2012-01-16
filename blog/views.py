@@ -69,7 +69,7 @@ def get_twitter_token():
         try:
             return user.oauth_token, user.oauth_secret
         except:
-            return user['oauth_token'], user['oauth_secret']
+            return user['oauth_token'], user['oauth_token_secret']
 
 
 
