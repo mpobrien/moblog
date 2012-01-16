@@ -8,7 +8,7 @@ app.admins = ['mpobrien']
 
 env_var = os.getenv('ENV')
 if env_var is not None and env_var == 'REMOTE':
-    db = Connection(os.getenv('MONGOHQ_URL'))
+    db = Connection(os.getenv('MONGOHQ_URL'))['blog']
 else:
     db = Connection()['blog']
 
