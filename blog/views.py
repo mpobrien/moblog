@@ -12,7 +12,8 @@ from pymongo import Connection
 from datetime import datetime
 from flaskext.oauth import OAuth
 
-db = Connection().blog
+from blog import db
+#db = Connection().blog
 
 oauth = OAuth()
 
