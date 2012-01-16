@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="previewzone">
+</div>
+<textarea id="markdownbox" rows="15" cols="100">
+#heading1
+##heading2
+###heading3
+
+> here is a blockquote!!!
+
+* bulletitem1
+* bulletitem2
+
+    $('#markdownbox').keyup(
+    function(){
+    var html = converter.makeHtml($(this).val())
+    $('#previewzone').html(html)
+    }
+    )
+</textarea>
+
+<script type="text/javascript">
+  var converter = new Showdown.converter()
+  $(document).ready(function(){
+      $('#markdownbox').keyup(
+        function(){
+          var html = converter.makeHtml($(this).val())
+          $('#previewzone').html(html)
+        }
+      )
+  })
+</script>
+{% endblock %}

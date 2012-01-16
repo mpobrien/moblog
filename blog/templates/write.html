@@ -1,0 +1,89 @@
+{% extends "base.html" %} 
+{% block header %}
+
+<style>
+  #wrapper{
+    width:960px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    margin-left:25px;
+    margin-right:25px;
+  }
+  #editingpanel{
+    position:absolute;
+    top:0px;
+    width:480px;
+  }
+  #previewzone{
+    padding-top:25px;
+    float:right;
+    width:480px;
+  }
+  .errors{
+    list-style:none;
+    color:red;
+  }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+
+  <div id="editingpanel">
+    <form method="POST" 
+
+      {% if post_id %}
+        action="{{url_for('edit', post_id=post_id)}}"
+      {% else %}
+        action="{{url_for('newpost')}}"
+      {% endif %}
+      
+      >
+      <table>
+        {% if form.title.errors %}
+          <tr><td colspan="2">
+            <ul class="errors">{% for error in form.title.errors %}<li>{{ error }}{% endfor %}</ul>
+          </td></tr>
+        {% endif %}
+        <tr {% if form.title.errors %}class="errors"{%endif%}><td> {{form.title.label}}</td><td> {{form.title(style="width:100%")}}</td> </tr>
+        <tr><td> {{form.content.label}}</td><td> {{form.content(id="markdownbox", style="width:380px", rows=30)}}</td> </tr>
+        <tr><td colspan="2" style="text-align:center"><input type="submit" value="Publish"/></td>
+      </table>
+      {% if post_id %}
+          {{form.post_id}}
+      {% endif %}
+    </form>
+  </div>
+
+
+
+
+  <div id="previewzone">
+    <div id="titlepreview" class="post_title"></div>
+    <div id="previewcontent"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var converter = new Showdown.converter()
+  $(document).ready(function(){
+      var html = converter.makeHtml($('#markdownbox').val())
+      $('#previewcontent').html(html)
+      $('#titlepreview').text($('#title').val())
+
+      $('#title').keyup(function(){
+        $('#titlepreview').text($(this).val())
+      })
+
+      $('#markdownbox').keyup(
+        function(){
+          var html = converter.makeHtml($(this).val())
+          $('#previewcontent').html(html)
+        }
+      )
+  })
+</script>
+{% endblock %}

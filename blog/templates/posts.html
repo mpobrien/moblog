@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+
+{% block header %}
+<link rel="stylesheet" type="text/css" href="/static/prettify.css">
+<script src="/static/prettify.js" type="text/javascript"></script>
+<script language="Javascript">
+  $(document).ready(function(){
+    $('pre').addClass("prettyprint");
+    console.log($('pre'))
+    prettyPrint()
+  })
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="span4" id="left_bar">
+      <div style="text-align:center">mikey's blog!</div>
+      <div style="text-align:center"> <img src="/static/mikey.jpeg"/> </div>
+      <div class="bylines" style="text-align:center">i work at <a href="http://mongodb.org">10gen/mongodb</a>.</div>
+      <div class="bylines" style="text-align:center">i'm into <a href="http://nodejs.org">node</a> and <a href="http://python.org">python</a>.</div>
+      <div class="sep">&nbsp;</div>
+      <div class="bylines" style="text-align:center">this is my repository for:</div>
+      <div style="margin-top:10px; margin-left:10px;margin-right:10px;text-align:center; font-size:.9em">
+        <div class="aboutlist">tech industry cynicism</div>
+        <div class="aboutlist">observations through code</div>
+        <div class="aboutlist">unsolicited product advice</div>
+      </div>
+      <div class="sep">&nbsp;</div>
+      <div style="margin-left:58px">
+        <a href="http://github.com/mpobrien"><img class="svc_icon" src="/static/github_icon.png" width="24px"/></a>
+        &bull;
+        <a href="http://twitter.com/mpobrien"><img class="svc_icon" src="/static/twitter_icon.png" width="24px"/></a>
+        &bull;
+        <a href="http://facebook.com/mpobrien"><img class="svc_icon" src="/static/facebook_icon.png" width="24px"/></a>
+      </div>
+    </div>
+    <div class="span12" id="right_bar">
+      {% for post in posts %}
+        {% if g.user %}
+        <a class="edit_link" href="{{url_for('edit', post_id=post['_id'])}}">edit</a>
+        {% endif %}
+        <div class="post_title">{{post['title']}}</div>
+        <div class="timestamp">{{post['created_at']|timesince}}</div>
+        <div class="post_content">
+          {{post['html']|safe}}
+        </div>
+        <div class="sep">&nbsp;</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
