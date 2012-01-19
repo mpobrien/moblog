@@ -11,7 +11,6 @@ from functools import wraps
 from pymongo import Connection
 from datetime import datetime
 from flaskext.oauth import OAuth
-import PyRSS2Gen
 
 from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
