@@ -11,6 +11,10 @@ from functools import wraps
 from pymongo import Connection
 from datetime import datetime
 from flaskext.oauth import OAuth
+import PyRSS2Gen
+
+from urlparse import urljoin
+from werkzeug.contrib.atom import AtomFeed
 
 from blog import db
 #db = Connection().blog
@@ -70,6 +74,28 @@ def get_twitter_token():
             return user.oauth_token, user.oauth_secret
         except:
             return user['oauth_token'], user['oauth_token_secret']
+
+
+
+def make_external(url):
+    return urljoin(request.url_root, url)
+
+
+@app.route('/recent.atom')
+def recent_feed():
+    feed = AtomFeed('Recent Articles',
+                    feed_url=request.url,
+                    url=request.url_root)
+    posts = db.posts.find().sort("created_at", -1).limit(15)
+    for post in posts:
+        feed.add(post['title'], post['html'],
+                 content_type='html',
+                 author="mikey",
+                 url=request.url_root + str(post['_id']),
+                 updated=post['created_at'],
+                 published=post['created_at'])
+    return feed.get_response()
+
 
 
 

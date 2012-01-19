@@ -2,6 +2,11 @@
 
 {% block header %}
 <link rel="stylesheet" type="text/css" href="/static/prettify.css">
+<link href="{{ url_for('recent_feed') }}"
+      rel="alternate"
+      title="Recent Changes" 
+      type="application/atom+xml">
+
 <script src="/static/prettify.js" type="text/javascript"></script>
 <script language="Javascript">
   $(document).ready(function(){
