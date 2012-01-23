@@ -1,6 +1,8 @@
 {% extends "base.html" %} 
 {% block header %}
 
+<link rel="stylesheet" type="text/css" href="/static/prettify.css">
+<script src="/static/prettify.js" type="text/javascript"></script>
 <style>
   #wrapper{
     width:960px;
@@ -76,12 +78,16 @@
 
       $('#title').keyup(function(){
         $('#titlepreview').text($(this).val())
+
       })
 
       $('#markdownbox').keyup(
         function(){
           var html = converter.makeHtml($(this).val())
           $('#previewcontent').html(html)
+
+          $('#previewcontent code').addClass("prettyprint");
+          prettyPrint()
         }
       )
   })

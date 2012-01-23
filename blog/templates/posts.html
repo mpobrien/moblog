@@ -40,6 +40,10 @@
         &bull;
         <a href="http://facebook.com/mpobrien"><img class="svc_icon" src="/static/facebook_icon.png" width="24px"/></a>
       </div>
+      <div class="sep">&nbsp;</div>
+      <div style="text-align:center;line-height:20px; vertical-align:middle;">
+        <a href="/recent.atom" style="font-size:12px">subscribe<img class="svc_icon" style="padding-left:5px;" src="/static/rss.png" width="24px"/></a>
+      </div>
     </div>
     <div class="span12" id="right_bar">
       {% for post in posts %}
@@ -51,7 +55,7 @@
         <div class="post_content">
           {{post['html']|safe}}
         </div>
-        <div class="sep">&nbsp;</div>
+        <div class="sep post_sep">&nbsp;</div>
       {% endfor %}
     </div>
 
